@@ -1,15 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ProductsList :products="products" />
+
+  <br>
+
+  <ProductsList :products="products">
+    <template v-slot:default="slotProps">
+        <img :src="slotProps.item.image" />
+        {{ slotProps.item.name.toUpperCase() }}
+    </template>
+  </ProductsList>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ProductsList from './components/productsList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ProductsList
+  },
+  setup() {
+    const products = [
+      {
+        name: 'Magnifying Glass',
+        image: 'magnifying.jpg'
+      },
+      {
+        name: 'Light Bulb',
+        image: 'bulb.jpg'
+      }
+    ];
+ 
+    return { 
+      products
+    }
   }
 }
 </script>
